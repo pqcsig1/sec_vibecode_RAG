@@ -3,7 +3,7 @@
 Query engine for local, secure RAG.
 - Embeds query locally and searches Chroma for relevant chunks
 - Builds a secure, injection-resilient prompt
-- Calls local Ollama (qwen3:8b) via LangChain
+- Calls local Ollama (qwen3:1.7b, qwen3:8b) via LangChain
 """
 
 import os
@@ -93,15 +93,24 @@ def run_query(question: str) -> Dict:
 
     # Build secure prompt and invoke Ollama
     base_url = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-    model_name = os.getenv("OLLAMA_MODEL", "qwen3:8b")
-    llm = Ollama(model=model_name, base_url=base_url)
+    models_env = os.getenv("OLLAMA_MODEL", "qwen3:1.7b, qwen3:8b")
+    candidates = [m.strip() for m in models_env.split(",") if m.strip()]
     prompt = _build_prompt(contexts, q)
 
-    # Call model safely
-    try:
-        answer_text = llm.invoke(prompt)
-    except Exception as e:
-        return {"error": f"LLM invocation failed: {str(e)}"}
+    # Try each candidate model in order (fallback if missing/404)
+    answer_text = None
+    last_err = None
+    for model_name in candidates:
+        try:
+            llm = Ollama(model=model_name, base_url=base_url)
+            answer_text = llm.invoke(prompt)
+            break
+        except Exception as e:
+            # Save error and try next model
+            last_err = e
+            continue
+    if answer_text is None:
+        return {"error": f"LLM invocation failed for models {candidates}: {str(last_err)}"}
 
     latency_ms = int((time.time() - start) * 1000)
 

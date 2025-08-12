@@ -53,8 +53,23 @@ def setup_agent():
             description="Analyze documents in the knowledge base. Provides metadata, statistics, document counts, file types, and content insights. Use for questions about document inventory and analysis."
         )
     ]
-    model_name = os.getenv("OLLAMA_MODEL", "qwen3:8b")
-    llm = Ollama(model=model_name, base_url=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434"))
+    # Support comma-separated model preference list, try in order
+    base_url = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
+    models_env = os.getenv("OLLAMA_MODEL", "qwen3:1.7b, qwen3:8b")
+    candidates = [m.strip() for m in models_env.split(",") if m.strip()]
+    llm = None
+    last_err = None
+    for model_name in candidates:
+        try:
+            llm = Ollama(model=model_name, base_url=base_url)
+            # quick no-op check by formatting a trivial prompt (lazy init)
+            _ = str(llm)  # ensures object constructed
+            break
+        except Exception as e:
+            last_err = e
+            continue
+    if llm is None:
+        raise RuntimeError(f"Failed to initialize Ollama with models {candidates}: {last_err}")
 
     # agent = load_agent(
     #     agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,

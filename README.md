@@ -23,6 +23,14 @@ Streamlit UI → Ingest/Chunk → Embed → Chroma (persistent)
 User Query → Query Embed → Vector Search → Prompt → Ollama → Answer
 ```
 
+## Demo
+![Secure VibeCode RAG Demo](assets/demo.gif)
+
+Tips for recording securely:
+- Use a dummy `.env` with non-sensitive placeholder credentials.
+- Avoid showing terminal secrets, PII file paths, or external IPs.
+- Record with Peek (Linux) or OBS and trim to ~10–20s.
+
 Key modules:
 - `streamlit_ui/app.py` – UI, auth, rate limiting, safe file uploads, audit logging
 - `rag_pipeline/load_docs.py` – secure loaders, chunking, metadata
@@ -47,7 +55,9 @@ pip install -r requirements.txt
 # 2) Create local env
 cp .env.example .env
 # Edit .env to set STREAMLIT_USERNAME and STREAMLIT_PASSWORD
-# Optionally set OLLAMA_MODEL=qwen3:8b (or qwen3:1.7b)
+# Optionally set OLLAMA_MODEL to a comma-separated preference list.
+# Example:
+# OLLAMA_MODEL=qwen3:8b,qwen3:1.7b
 
 # 3) Pull a model
 ollama pull qwen3:8b
@@ -91,9 +101,10 @@ OWASP alignment (high-level): A01 Broken Access Control (local auth), A03 Inject
 - Admin tab: vector store metrics, audit log tail, tool utilities
 
 ## Model switching
-- Default: `qwen3:8b`
-- CPU-friendly: `qwen3:1.7b`
-Update `.env` and restart the app after switching models.
+- Supported models: `qwen3:8b` and `qwen3:1.7b` (both can be installed)
+- You can set a comma-separated preference list in `.env`, the app will try them in order:
+  - Example: `OLLAMA_MODEL=qwen3:8b,qwen3:1.7b`
+Update `.env` and restart the app after changing models.
 
 ## Roadmap
 - Optional Hugging Face Spaces support (provider switch or proxy)
