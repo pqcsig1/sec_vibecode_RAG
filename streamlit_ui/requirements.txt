@@ -1,0 +1,10 @@
+langchain
+langchain-community
+chromadb
+tqdm
+unstructured
+ollama
+flask
+sentence-transformers
+pypdf2
+pdfplumber

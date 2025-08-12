@@ -1,0 +1,33 @@
+# Secure VibeCode RAG - gitignore
+# Prevent committing secrets, local artifacts, and bulky caches
+
+# Secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.mypy_cache/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local app artifacts
+logs/
+vectorstore/
+# Ignore user-ingested documents by default (may contain sensitive data)
+# Keep the directory but ignore contents
+/data/
+!/data/.gitkeep
+
+# Streamlit
+.streamlit/

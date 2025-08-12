@@ -1,0 +1,13 @@
+# Pinned minimal deps for local RAG (avoid vulnerable/uncommon packages)
+streamlit==1.36.0
+python-dotenv==1.0.1
+langchain==0.2.11
+langchain-community==0.2.10
+chromadb==0.5.5
+sentence-transformers==3.0.1
+ollama==0.2.1
+pdfplumber==0.11.4
+pypdf==4.3.1
+unstructured==0.15.7
+# Flask is not required in this version, present for legacy scripts
+flask==3.0.3
