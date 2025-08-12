@@ -23,7 +23,7 @@ Streamlit UI → Ingest/Chunk → Embed → Chroma (persistent)
 User Query → Query Embed → Vector Search → Prompt → Ollama → Answer
 ```
 
-## Demo
+## Demo (v1.1.0)
 ![Secure VibeCode RAG Demo](assets/demo.gif)
 
 Tips for recording securely:
