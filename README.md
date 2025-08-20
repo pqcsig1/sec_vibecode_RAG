@@ -26,10 +26,6 @@ User Query → Query Embed → Vector Search → Prompt → Ollama → Answer
 ## Demo
 ![Secure VibeCode RAG Demo](assets/demo.gif)
 
-Tips for recording securely:
-- Use a dummy `.env` with non-sensitive placeholder credentials.
-- Avoid showing terminal secrets, PII file paths, or external IPs.
-- Record with Peek (Linux) or OBS and trim to ~10–20s.
 
 Key modules:
 - `streamlit_ui/app.py` – UI, auth, rate limiting, safe file uploads, audit logging
