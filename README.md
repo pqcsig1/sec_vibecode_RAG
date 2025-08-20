@@ -40,27 +40,31 @@ Key modules:
 - RAM: 8GB+ recommended for `qwen3:8b` (use `qwen3:1.7b` on lower-end machines)
 
 ## Quick Start
+
 ```bash
-# 0) Create and activate a virtualenv
+# 1) Clone repository
+https://github.com/pqcsig1/sec_vibecode_RAG.git
+
+# 2) Create and activate a virtualenv
 python3 -m venv .venv
 . .venv/bin/activate
 
-# 1) Install dependencies
+# 4) Install dependencies
 pip install -r requirements.txt
 
-# 2) Create local env
+# 5)  Create local env
 cp .env.example .env
 # Edit .env to set STREAMLIT_USERNAME and STREAMLIT_PASSWORD
 # Optionally set OLLAMA_MODEL to a comma-separated preference list.
 # Example:
 # OLLAMA_MODEL=qwen3:8b,qwen3:1.7b
 
-# 3) Pull a model
+# 6) Pull a model
 ollama pull qwen3:8b
 # or
 ollama pull qwen3:1.7b
 
-# 4) Run the app
+# 7) Run the app
 streamlit run streamlit_ui/app.py
 ```
 
@@ -71,7 +75,7 @@ Required:
 
 Optional (defaults shown in code):
 - `OLLAMA_HOST=http://127.0.0.1:11434`
-- `OLLAMA_MODEL=qwen3:8b` (use `qwen3:1.7b` for CPU)
+- `OLLAMA_MODEL=qwen3:8b` (use `qwen3:1.7b` for CPU or update your chosen models)
 - `CHROMA_PERSIST_DIR=./vectorstore`
 - `DATA_DIR=./data`
 - `RAG_TOP_K=4`
