@@ -59,12 +59,15 @@ cp .env.example .env
 # Example:
 # OLLAMA_MODEL=qwen3:8b,qwen3:1.7b
 
-# 6) Pull a model
+# 6) Download Ollama 
+https://ollama.com/download
+
+# 7) Pull a model
 ollama pull qwen3:8b
 # or
 ollama pull qwen3:1.7b
 
-# 7) Run the app
+# 8) Run the app
 streamlit run streamlit_ui/app.py
 ```
 
