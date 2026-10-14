@@ -7,7 +7,7 @@ chromadb==0.5.5
 sentence-transformers==3.0.1
 ollama==0.2.1
 pdfplumber==0.11.4
-pypdf==4.3.1
+pypdf==6.19.0
 unstructured==0.15.7
 # Flask is not required in this version, present for legacy scripts
 flask==3.0.3
